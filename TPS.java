@@ -13,7 +13,7 @@ public class TPS {
 	public static void main(final String[] args) throws Exception {
 		final Path path = Paths.get("./", "ids.txt");
 		
-		try (WebClient client = new WebClient()) {
+		try (final WebClient client = new WebClient()) {
 			client.getOptions().setCssEnabled(false);
 			client.getOptions().setJavaScriptEnabled(false);
 			HtmlPage page;
@@ -40,15 +40,12 @@ public class TPS {
 						
 						try {
 							newPage = button.click();
-							System.out.print(attributeValue);
+							System.out.print(".");
 							
 							if (newPage.getTitleText().equals("TPS - Team Home")) {
-								System.out.print(" +");
 								Files.write(path, (attributeValue + System.getProperty("line.separator")).getBytes(), StandardOpenOption.APPEND, StandardOpenOption.CREATE);
 							}
-							System.out.println();
 						} catch (FailingHttpStatusCodeException exception) {
-							System.out.println(attributeValue + " " + exception.getStatusCode());
 						}
 					}
 				}
